@@ -26,10 +26,54 @@
   </div>
 
   <div class="main">
-    <img src="assets/handr.gif" alt="hand right" class="handright">
-    <p>yoooo</p>
-    <img src="assets/handl.gif" alt="hand right" class="handright">
+    <div class="rows">
+      <img src="assets/handr.gif" alt="hand right" class="handright">
+      <p>yoooo</p>
+      <img src="assets/handl.gif" alt="hand right" class="handright">
+    </div>
+
+    <br />
+    <h2>Here are some images I found online that I like</h2>
+    <br />
+    <div class="carousel">
+      <button class="prev" onclick="prevImage()">&#10094;</button>
+      <div id="image-container"></div>
+      <button class="next" onclick="nextImage()">&#10095;</button>
+    </div>
   </div>
+
+  <script>
+    const imageCount = 25;
+    const images = Array.from({ length: imageCount }, (_, i) => `assets/carousel/${i + 1}.png`);
+
+    let index = 0;
+    const imageContainer = document.getElementById("image-container");
+
+    // Dynamically create image elements
+    images.forEach((src, i) => {
+      const img = document.createElement("img");
+      img.src = src;
+      if (i === 0) img.classList.add("active"); // First image is visible
+      imageContainer.appendChild(img);
+    });
+
+    const imgElements = document.querySelectorAll(".carousel img");
+
+    function showImage(i) {
+      imgElements.forEach(img => img.classList.remove("active"));
+      imgElements[i].classList.add("active");
+    }
+
+    function prevImage() {
+      index = (index - 1 + images.length) % images.length;
+      showImage(index);
+    }
+
+    function nextImage() {
+      index = (index + 1) % images.length;
+      showImage(index);
+    }
+  </script>
 </body>
 
 </html>
